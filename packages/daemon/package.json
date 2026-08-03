@@ -1,0 +1,21 @@
+{
+  "name": "@csm/daemon",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/daemon.cjs",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "dev": "node scripts/build.js && node dist/daemon.cjs"
+  },
+  "dependencies": {
+    "node-pty": "^1.0.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0",
+    "@types/ws": "^8.5.13",
+    "@types/node": "^20.17.0",
+    "typescript": "^5.7.2"
+  }
+}

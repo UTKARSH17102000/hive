@@ -1,0 +1,42 @@
+appId: com.hive.sessionmanager
+productName: Hive
+copyright: © 2026 Utkarsh Goswami
+# Electron is hoisted to the workspace root, so pin the version explicitly.
+electronVersion: 33.4.11
+
+directories:
+  output: ../../release
+  buildResources: build
+
+# Only ship the built app; renderer deps (react/xterm/lucide) are already bundled by
+# electron-vite, so we don't need packages/app/node_modules.
+files:
+  - out/**/*
+  - package.json
+
+# The daemon and its native module must be real files on disk (spawned as a separate
+# system-node process; node-pty is native), so they live outside the asar as resources.
+extraResources:
+  - from: ../daemon/dist
+    to: daemon/dist
+  - from: ../../node_modules/node-pty
+    to: daemon/node_modules/node-pty
+    filter:
+      - '**/*'
+      - '!**/*.pdb'
+      - '!**/*.md'
+
+win:
+  target:
+    - nsis
+  icon: build/icon.ico
+  artifactName: ${productName}-Setup-${version}.${ext}
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: Hive
+  uninstallDisplayName: Hive

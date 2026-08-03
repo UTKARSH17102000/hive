@@ -1,0 +1,25 @@
+{
+  "name": "claude-session-manager",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Desktop app to manage many persistent Claude Code CLI sessions grouped by folder.",
+  "workspaces": [
+    "packages/daemon",
+    "packages/app"
+  ],
+  "scripts": {
+    "build:daemon": "npm run build --workspace packages/daemon",
+    "dev": "npm run build:daemon && npm run dev --workspace packages/app",
+    "daemon:dev": "npm run dev --workspace packages/daemon",
+    "daemon:stop": "node packages/daemon/scripts/stop.js",
+    "build": "npm run build:daemon && npm run build --workspace packages/app",
+    "dist": "npm run build && npm run dist --workspace packages/app"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "electron-builder": "^25.1.8",
+    "png-to-ico": "^3.0.2"
+  }
+}
